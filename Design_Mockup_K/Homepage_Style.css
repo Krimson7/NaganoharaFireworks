@@ -1,0 +1,196 @@
+.access-point1{
+    border: 1px solid black; 
+    height: 100px; 
+    text-align: center; 
+    background-color: antiquewhite;
+}
+.access-point2{
+    border: 1px solid black; 
+    height: 200px; 
+    text-align: center; 
+    background-color: skyblue;
+}
+.container01{
+    display: flex;
+    width: 100%;
+    background: linear-gradient(to bottom, #000042 50%, #752f00 100%);
+}
+.container02{
+    background: linear-gradient(to bottom, #000042 50%, #752f00 100%);
+}
+.header00 {
+    
+    width:50%;
+    margin:0;
+}
+.header01{
+    float: left;
+}
+.header02{
+    float: left;
+}
+.header02 h3{
+    color:white;
+}
+
+.header03{
+    display:inline-flex;
+    width: 50%;
+    align-items: right;
+    text-align: center;
+    justify-content: right;
+}
+.header03 h4{
+    color:white;
+}
+.header03 p{
+    color:rgb(0, 191, 255);
+    text-decoration: underline;
+}
+
+.navbar01{
+    width: screenwidth;
+    position: sticky;
+    top:0;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 15px;
+    background-color: rgb(112, 72, 124);
+    overflow: hidden;
+}
+.navbar01 li {
+    list-style: none;
+    display: inline-block;
+    margin: 0 20px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+  }
+/* Style the links inside the navigation bar */
+.navbar01 li a {
+    float: center;
+    /* border: 1px solid black; */
+    color: #ff7300;
+    margin:auto; 
+    text-align: center; 
+    position: relative;
+    font-size: 17px;
+  }
+  
+  /* Change the color of links on hover */
+  .navbar01 li a:hover {
+    background-color: rgb(255, 174, 0);
+    color: black;
+  }
+  
+  /* Add a color to the active/current link */
+  .navbar01 li a.active {
+    background-color: #ff5100;
+    color: rgb(0, 0, 0);
+  }
+
+  .BestFireworks{
+    width:40%;
+    color:rgb(255, 123, 0);
+    margin:auto;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    
+}
+  .BestFireworks h1{
+    padding:20px;
+    text-align: center;
+  }
+
+  .BestFireworks h4{
+    padding:20px;
+    text-align: left;
+  }
+.BestFireworks p{
+    color: white;
+    padding:20px;
+    text-align: left;
+  }
+
+
+
+/* Social Media Icon */
+.icon {
+    width:50%;
+    display: flex;
+    float: right;
+    justify-content: center;
+    /* margin: auto ; */
+    align-items: center;
+  }
+  .icon li {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    background-color: rgb(68, 68, 68);
+    margin: auto;
+    box-shadow: 3px 3px 10px #642d00, -4px -4px 10px #642d00;
+    text-align: center;
+    line-height: 60px;
+    font-size: 50px;
+    color: #333;
+    cursor: pointer;
+    transition: 1s;
+    border-radius: 10px;
+  }
+  .icon li:nth-child(1):hover {
+    color: #eee;
+    border-radius: 50%;
+    background-color: #b5deff;
+  }
+  .icon li:nth-child(2):hover {
+    color: #eee;
+    border-radius: 50%;
+    background-color: #ffbcbc;
+  }
+  .icon li:nth-child(3):hover {
+    color: #eee;
+    border-radius: 50%;
+    background-color: #b5eaea;
+  }
+.footerAdress{
+    background-color: rgb(8, 0, 31);
+    width:50%;
+    padding:10px;
+    margin:20px;
+    float: left;
+}
+.newsBox{
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background: linear-gradient(to bottom, #ffffff 50%, #8b8b8b 100%);
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25;
+}
+
+.customForm{
+    align-items: center;
+}
+.customForm label{
+    display: inline-block;
+    width: 150px;
+}
+.customForm input[type="text"], select{
+    margin-right:10px;
+    float:right;
+    width: 50%;
+    height: 30px;
+}
+.customForm input[type="checkbox"]{
+    margin-right:10px;
+    float:right;
+    width: 50%;
+    height: 30px;
+}
