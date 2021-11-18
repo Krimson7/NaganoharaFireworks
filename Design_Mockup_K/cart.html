@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="Homepage_Style.css">
+</head>
+
+<body>
+    <div class="app_container">
+        <div id="app">
+            <div name="site-header" class="container01">
+                <div class="header00">
+                    <div class="header01">
+                        <img style="width: 80px; padding: 5px;" src="Image/fireworks.png" alt="fireowrks" />
+                    </div>
+                    <div class="header02">
+                        <h3>Naganohara <br> Fireworks</h3>
+                    </div>
+                </div>
+                <div class="header03">
+                    <div>
+                        <div style="display: inline-flex; float:right;">
+                            <h4>Username</h4>
+                            <img style="width: 50px; height: 50px; padding:5px " src="Image/girl.png" alt="girl" />
+                        </div>
+                        <div class="search">
+                            <form >
+                                <input
+                                class="form-control mr-sm-2"
+                                type="search"
+                                placeholder="Search"
+                                aria-label="Search"
+                                />
+                            </form>
+                        </div>
+                    </div>
+                    <div style="display:grid; align-items: center; justify-content: center;">
+                        <button style="background: none; border:none;" v-on:click="ShowMyCart" ><img style="width: 60px; padding: 5px;" src="Image/shopping-cart.png" alt="shopping-cart" /></button>
+                        <p style="margin:0px;">Log out</p>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar01">
+                <li><a href="#">Home</a></li>
+                <li v-on:click="ShowHomePage"><a href="#">Category</a></li>
+                <li><a href="#">Promotion</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </div>
+            <div class="container01" style="margin-top : 30px;" v-if="product_page">
+                Products ::
+                <hr/>
+                <div class="home container">
+                    <div class="row">
+                        <div class="col-md-12 pt-5">
+                            <div class="row equal row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-4">
+                                <Product v-on:add-item="addItem" v-for="product in products" :product="product" :key="product.id" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top : 30px; color:white; margin-left: 100px;" v-if="cart_page">
+                <p>My Cart :</p>
+                <div class="home container">
+                    <div class="row">
+                        <div class="col-md-12 pt-5">
+                            <div class="row equal row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-4">
+                                <CartItem v-on:del-item="delItem" v-for="item in cart" :item="item" :key="item.id" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p>Total Price :  ${{sumPrice}} </p>
+            </div>
+        </div>
+
+
+    </div>
+    </div>
+
+    <template id="product-template">
+        <div class="col mb-4 d-flex">
+            <div class="card">
+                <img :src="product.url" class="card-img-top" alt="...">
+                <div class="card-body">
+                <h5 class="card-title">{{product.name}}</h5>
+                <p class="card-text">
+                    ${{product.price}}
+                    <br/>
+                    <small>
+                    {{product.shortdesc}}
+                    </small>
+                </p>
+                <button @click="addToCart()" class="btn btn-primary btn-block">Add</button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="cartitem-template">
+        <!-- <div>{{item.name}} - {{item.count}}</div> -->
+        <div style="color:black;" class="col mb-4 d-flex">
+            <div class="card">
+                <!-- <img :src="product.url" class="card-img-top" alt="..."> -->
+                <div class="card-body">
+                <h5 class="card-title">{{item.name}}</h5>
+                <p class="card-text">
+                    Amount: {{item.count}} <br/>
+                    Total Price: ${{item.price * item.count}} <br/>
+
+
+                </p>
+                <button @click="delFromCart()" class="btn btn-primary btn-block"> - </button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <!-- <script src="https://unpkg.com/vuex@4.0.0/dist/vuex.global.js"></script> -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        let app = Vue.createApp({
+
+            data: function() {
+                return {
+                    product_page: true,
+                    cart_page: false,
+
+                    products: [{
+                        id: 1,
+                        name: "Firework rockets",
+                        price: 200,
+                        shortdesc: "Best Drip in the Market",
+                        url: "image/F_rocket.png"
+                    }, {
+                        id: 2,
+                        name: "Sparklers",
+                        price: 50,
+                        shortdesc: "Cool, Cute, whatever you want",
+                        url: "image/F_sparkler.jpg"
+                    }, {
+                        id: 3,
+                        name: "Fountain",
+                        price: 1000,
+                        shortdesc: "Something on your mind?",
+                        url: "image/F_fountain.jpg"
+                    }, {
+                        id: 4,
+                        name: "Barrage",
+                        price: 3000,
+                        shortdesc: "Blast your worry away!",
+                        url: "image/F_barrage.jpg"
+                    }, {
+                        id: 5,
+                        name: "Mini Gun",
+                        price: 230,
+                        shortdesc: "Hell's work of art!",
+                        url: "image/F_minigun.jpg"
+                    }],
+
+                    cart: []
+                }
+            },
+
+            mounted: function() {
+
+            },
+
+            methods: {
+                addItem: function(id) {
+                    console.log(this.products)
+                    console.log(id)
+                    
+                    //Check if this product already in the cart
+                    item = this.cart.find(product => product.id == id)
+
+                    if (item) { // if this product already in the cart
+                        item.count += 1
+                    } else {
+                        item = this.products.find(product => product.id == id)
+                        this.cart.push({
+                            id: item.id,
+                            name: item.name,
+                            price: item.price,
+                            count: 1
+                        })
+                    }
+                    console.log(this.cart)
+                },
+
+                delItem: function(id) {
+                    console.log(this.products)
+                    console.log(id)
+                    
+                    //Check if this product already in the cart
+                    item = this.cart.find(product => product.id == id)
+                    if (item.count == 1) { // if this product already in the cart
+                        this.cart.pop({
+                            id: item.id,
+                        })
+                    } 
+                    else { // if this product already in the cart
+                        item.count -= 1
+                    } 
+                    console.log(this.cart)
+                },
+
+                ShowMyCart: function() {
+                    this.cart_page = true
+                    this.product_page = false
+                },
+
+                ShowHomePage: function() {
+                    this.product_page = true
+                    this.cart_page = false
+                }
+            },
+
+            computed: {
+                sumPrice: function() {
+                    var sum = 0
+                    for ( i in this.cart){
+                        sum += this.cart[i].price * this.cart[i].count
+                    }
+                    return sum
+                }
+            }
+
+        })
+
+     
+
+        app.component('Product', {
+            data: function() {
+                return {}
+            },
+            props: ['product'],
+            template: "#product-template",
+
+            methods: {
+                addToCart: function() {
+                    this.$emit("add-item", this.product.id)
+                }
+
+            },
+        });
+
+        app.component('Cartitem', {
+            
+            props: ['item'],
+            template: '#cartitem-template',
+            methods: {
+                delFromCart: function() {
+                    this.$emit("del-item", this.item.id)
+                }
+            },
+            computed: {
+                sumPrice: function() {
+                    var sum = 0
+                    for (i in this.item){
+                        sum += (this.item[i].count*this.item[i].price)
+                    }
+                    return sum
+                }
+            }
+        });
+
+        app.mount("#app")
+    </script>
+
+
+</body>
+
+</html>
