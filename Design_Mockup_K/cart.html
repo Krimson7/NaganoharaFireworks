@@ -201,9 +201,7 @@
                     //Check if this product already in the cart
                     item = this.cart.find(product => product.id == id)
                     if (item.count == 1) { // if this product already in the cart
-                        this.cart.pop({
-                            id: item.id,
-                        })
+                        this.cart.splice(this.cart.indexOf(item),1)
                     } 
                     else { // if this product already in the cart
                         item.count -= 1
